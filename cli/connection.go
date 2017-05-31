@@ -1,11 +1,11 @@
 package cli
 
 import (
+	"crypto/tls"
 	"time"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
-	"crypto/tls"
 )
 
 // NewClientConn is a helper function that wraps the steps involved in setting up a grpc client connection to the API.
@@ -29,6 +29,7 @@ func NewClientConn(addr string, token string, secure bool) (*grpc.ClientConn, er
 		//	}
 		//} else {
 		tlsConfig := &tls.Config{
+			InsecureSkipVerify: true,
 		}
 		creds = credentials.NewTLS(tlsConfig)
 		//}
